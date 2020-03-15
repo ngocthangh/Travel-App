@@ -5,6 +5,11 @@ const router = Router()
 router.get('/', async (req, res, next) => {
     try {
         const entries = await LogEntry.find()
+        entries.forEach(entry => {
+            if(!entry.image) {
+                entry.remove()
+            }
+        })
         res.json(entries)
         
     } catch (error) {
